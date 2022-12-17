@@ -1,0 +1,46 @@
+
+accept(2) / connect(2) / bind(2) / accept(2) / getsocketname(2) / getpeername(2)
+
+
+
+The socket we will be creating is a TCP socket.
+In order to create a TCP socket we will use the man page for ip(7) as follows:
+
+	#include <sys/socket.h>
+	#include <netinet/in.h>
+	#include <netinet/ip.h>
+
+	int tcp_socket = socket(AF_INET, SOCK_STREAM, 0);
+
+AF_INET specifies that the communication domain we will be using is IPv4 Internet protocol.
+	ip contains a level 2 multicasting implementation. It allso contains an IP router including a packet filter.
+	When a process wants to receive new incoming packets or connections, it should bind a socket to a local interface address using bind(2).
+	An IP socket address is defined as a combinantion of an IP interface address and a 16-bit port number.
+
+The socket has the indicated type, which specifies the communication semantics.
+	In this case we will use SOCK_STREAM, it provides sequenced, reliable, two-way, connection-based byte streams.
+
+As for the protocol, normally only a single protocol exists to support a particular socket type within a given protocol family, in wich case protocol can be specified as 0.
+	The protocol number to use is specific to the communication domain in which communication is to take place (see protocols(5)).
+
+	A stream socket must be in a connected state before any data may be sent or received on it. A connection to another socket is created with a connect(2) call. Once connected, data may be transfered using read(2) and write(2) or some variants of the send(2) and recv(2) calls. When a session has been completed a close(2) may be performed.
+	The communication protocols which implement a SOCK_STREAM ensure that data is not lost or duplicated.
+	If a piece of data for which the peer protocol cannot be successfully transmitted within a reasonable length of time, the connection is considered to be dead.
+
+
+
+The next step is to initiate a connection on a socket:
+
+	#include <sys/types.h>
+	#include <sys/socket.h>
+
+	int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
+
+The connect() system call connects the socket referred to by the file descriptor sockfd to the address specified by addr.
+	The format of the address is determined by the address space of the socket sockfd.
+
+
+
+
+
+
