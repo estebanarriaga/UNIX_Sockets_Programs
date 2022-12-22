@@ -26,7 +26,7 @@ int main()
     struct sockaddr_in server_addr;
     memset(&server_addr, 0, sizeof(server_addr));
     server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(1234);
+    server_addr.sin_port = htons(3500);
     server_addr.sin_addr.s_addr = INADDR_ANY;
 
     // Bind the socket to the server address and port
@@ -59,5 +59,3 @@ int main()
 
     return 0;
 }
-
-???END
